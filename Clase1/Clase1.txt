@@ -1,0 +1,23 @@
+Definición depende de la arquitectura del sistema.
+Tiene que poder ser explorado en forma independiente al lenguaje, y no ser afectado por un cambio en la aplicación.
+SQL es declarativo, mientras que Java, C#, etc. son imperativos.
+
+Objetivo: Tiene que poder almacenar datos, devolver datos, e identificar a las personas que manipulan esos datos. (similar a definición de sistema seguro)
+
+Componentes:
+1) Información
+2) Programas que nos permiten almecenar la información (ej. phpmyadmin)
+3) Máquinas (administrar y otorgar espacio de almacenamiento, performance de la BD en un determinado servidor)
+4) Usuarios (dependiendo el usuario, es la información que devuelve la BD)
+
+Características:
+Autodescriptiva, lleva su propia definición.
+Tiene la posibilidad de compartir datos.
+Guardar y recuperar información (instantáneas)
+
+BD Relacional
+Todos los items de una misma columna deben tener el mismo tipo de datos.
+Cada una de las definiciones está escrita una sola vez. (ej. descripción de una localidad)
+No puede haber dos filas exactamente iguales.
+Las columnas tienen nombre único en una tabla.
+Las filas pueden estar desordenas, u ordenadas de una forma particular mediante índices.
