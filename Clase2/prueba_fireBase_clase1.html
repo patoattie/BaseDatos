@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+	<!-- The core Firebase JS SDK is always required and must be listed first -->
+	<script src="https://www.gstatic.com/firebasejs/6.5.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.5.0/firebase-firestore.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#config-web-app -->
+
+	<script>
+	  // Your web app's Firebase configuration
+	  var firebaseConfig = {
+		apiKey: "AIzaSyCws_R1QckHOgBMxq9Jxp_dTaPFWjP3Khg",
+		authDomain: "practica1bd-18731.firebaseapp.com",
+		databaseURL: "https://practica1bd-18731.firebaseio.com",
+		projectId: "practica1bd-18731",
+		storageBucket: "practica1bd-18731.appspot.com",
+		messagingSenderId: "534769284970",
+		appId: "1:534769284970:web:b3caa70e85195fab"
+	  };
+	  // Initialize Firebase
+	  firebase.initializeApp(firebaseConfig);
+	</script>
+</head>
+
+<body>
+    <input type="text" id="txtMensaje">
+    <input type="button" id="enviar" onclick="enviar()" value="enviar"></button>
+    <div>
+        mostrar linea linea el mensaje se actualiza cada vez que se carga un mensaje onSnapshop cada vez que cambie ud lo reciben
+
+      
+        
+    </div>
+
+</body>
+<script>
+	function enviar()
+	{
+		var db = firebase.firestore();
+        var mensaje = document.getElementById('txtMensaje').value;
+        db.collection("Mensajes").add({ ElMensaje: mensaje });
+	}
+</script>
+
+</html>
