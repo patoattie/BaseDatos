@@ -18,8 +18,4 @@
   // Initialize Firebase
 
   firebase.initializeApp(firebaseConfig);
-
-  /*
-  https://firebase.google.com/docs/firestore/quickstart?authuser=0
-  */
-    var db = firebase.firestore();
+  

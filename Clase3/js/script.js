@@ -1,4 +1,8 @@
  
+  /*
+  https://firebase.google.com/docs/firestore/quickstart?authuser=0
+  */
+ var db = firebase.firestore();
 
   // REGISTER DOM ELEMENTS
   var campoMensaje = $('#mensaje');
