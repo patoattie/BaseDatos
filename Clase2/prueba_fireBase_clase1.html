@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+	<title>Document</title>
+	<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js'></script>
 	<!-- The core Firebase JS SDK is always required and must be listed first -->
 	<script src="https://www.gstatic.com/firebasejs/6.5.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.5.0/firebase-firestore.js"></script>
@@ -32,12 +33,11 @@
 <body>
     <input type="text" id="txtMensaje">
     <input type="button" id="enviar" onclick="enviar()" value="enviar"></button>
-    <div>
-        mostrar linea linea el mensaje se actualiza cada vez que se carga un mensaje onSnapshop cada vez que cambie ud lo reciben
 
-      
-        
-    </div>
+	<div>
+		<input type="button" id="traer" onclick="traer()" value="traer"></button>
+	</div>
+	<ul id="datos"></ul>
 
 </body>
 <script>
@@ -46,6 +46,26 @@
 		var db = firebase.firestore();
         var mensaje = document.getElementById('txtMensaje').value;
         db.collection("Mensajes").add({ ElMensaje: mensaje });
+	}
+
+	function traer()
+	{
+		var db = firebase.firestore();
+		var data = new Array();
+		var texto = "";
+
+		db.collection("Mensajes").get().then((querySnapshot) => 
+		{
+			querySnapshot.forEach((doc) =>
+			{
+				//console.info(`${doc.id} => ${doc.data().ElMensaje}`);
+				//data.push(`${doc.id} => ${doc.data().ElMensaje}`);
+				//data.push(doc.id + "=>" + doc.data().ElMensaje);
+			});
+		});
+		console.log(texto);
+
+		document.getElementById("datos").innerHTML = texto;
 	}
 </script>
 
