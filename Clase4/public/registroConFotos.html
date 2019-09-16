@@ -44,16 +44,25 @@ function registrar()
     var campoArchivo = $('#archivo');
     var username = campoUsuario.val();
     var clave = campoClave.val();
-    var metadata = {
+ 
+
+  //SAVE DATA TO FIREBASE AND EMPTY FIELD
+  db.collection("usuarios").add({
+      usuario: username,
+      clave: clave,
+      fecha: firebase.firestore.Timestamp.fromDate(new Date()),
+      img: downloadURL,
+  })
+  .then(function(docRef) {
+      console.log("Document written with ID: ", docRef.id);
+      var file = campoArchivo.get(0).files[0];
+      var metadata = {
              contentType: 'image/jpeg',
             customMetadata: {
                   'usuario': username,
-                  'activity': 'Programador'
+                  'id': docRef.id
                 }
             };
- 
-
-  var file = campoArchivo.get(0).files[0];
       var uploadTask = storage.child('images/' + file.name).put(file, metadata);
             uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
                 function(snapshot) {
@@ -66,11 +75,19 @@ function registrar()
                 function() {
                     uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
                         console.log('File available at', downloadURL);
-                      
+                    
+                    docRef.img = downloadURL;                      
                     });
                 });
 
-  console.info("archivo",file);
+    console.info("archivo",file);
+  })
+  .catch(function(error) {
+      console.error("Error adding document: ", error);
+  });
+
+  campoUsuario.val('');
+  campoClave.val('');
 
 }
  
