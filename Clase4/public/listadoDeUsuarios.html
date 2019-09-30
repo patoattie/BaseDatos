@@ -26,7 +26,7 @@
     
   </div>
 
-  <ul id='listadodemensajes' class="example-chat-messages"></ul>
+  <ul id='listadodeusuarios' class="example-chat-messages"></ul>
 
   <footer>
   
@@ -39,73 +39,41 @@
 
 <!--  JAVACRIPT -->
 <script>
- 
 
   // REGISTER DOM ELEMENTS
-  var campoClave = $('#clave');
+  var campoMensaje = $('#mensaje');
   var campoUsuario = $('#usuario');
-  
+  var listaUsuarios = $('#listadodeusuarios');
+
+db.collection("usuarios").onSnapshot(function(coleccion) {
+
+
+console.info("la coleccion : ", coleccion.docs);
+
+
+coleccion.forEach(function(objeto) {
+        // doc.data() is never undefined for query doc snapshots
+        console.info( "el objeto",objeto);
+        console.info( "el id",objeto.id);
+        console.info( "el datos",objeto.data() );
+
+        var messageElement = $("<li>");
+        var nameElement = $("<strong class='example-chat-username'></strong>")
+        nameElement.text(objeto.data().usuario);
+        messageElement.text(objeto.data().mensaje).prepend(nameElement);
+
+        //ADD usuario
+        listaUsuarios.append(messageElement)
+
+        //SCROLL TO BOTTOM OF MESSAGE LIST
+        listaUsuarios[0].scrollTop = listaUsuarios[0].scrollHeight;
+  });
 
 
 
-function registrar()
-{
-    var campoArchivo = $('#archivo');
-    var username = campoUsuario.val();
-    var clave = campoClave.val();
-    var metadata = {
-             contentType: 'image/jpeg',
-            customMetadata: {
-                  'usuario': username,
-                  'activity': 'Programador'
-                }
-            };
- 
-
-  var file = campoArchivo.get(0).files[0];
-      var uploadTask = storage.child('images/' + file.name).put(file, metadata);
-            uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-                function(snapshot) {
-                    // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-                    var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                    console.log('Upload is ' + progress + '% done');
-                },
-                function(E) {},
-
-                function() {
-                    uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-                        console.log('File available at', downloadURL);
-                      
-                    });
-                });
-
-  console.info("archivo",file);
-
-}
- 
-
+});
 
  
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
