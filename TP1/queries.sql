@@ -37,3 +37,27 @@ WHERE e.cod_empleado = d.cod_empleado
 AND d.fecha_contrato <= DATE_SUB(NOW(), INTERVAL 10 YEAR);
 
 /*Punto 7*/
+SELECT *
+FROM clientes c
+ORDER BY c.razon_social;
+
+/*Punto 8*/
+SELECT DISTINCT c.razon_social, pr.descripcion
+FROM pedidos pd, detalle_pedidos dp, clientes c, productos pr
+WHERE pd.cod_cliente = c.cod_cliente
+AND dp.cod_pedido = pd.cod_pedido
+AND pr.cod_producto = dp.cod_producto
+ORDER BY c.razon_social, pr.descripcion;
+
+/*Punto 9*/
+SELECT p.descripcion, (p.punto_reposicion - p.cantidad_stock) cantidad_a_comprar, f.razon_social
+FROM productos p, fabricantes f
+WHERE p.cod_fabricante = f.cod_fabricante
+AND p.cantidad_stock < p.punto_reposicion
+ORDER BY f.razon_social, p.descripcion;
+
+/*Punto 10*/
+SELECT e.apellido, c.cuota
+FROM empleados e, datos_contratos c
+WHERE e.cod_empleado = c.cod_empleado
+AND c.cuota BETWEEN 50000 AND 100000;
